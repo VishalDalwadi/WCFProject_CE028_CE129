@@ -1,5 +1,6 @@
 ﻿using JWT.Algorithms;
 using JWT.Builder;
+using System;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
@@ -55,6 +56,7 @@ namespace AuthenticationService
                     token = new JwtBuilder()
                         .WithAlgorithm(new HMACSHA256Algorithm())
                         .WithSecret(ConfigurationManager.AppSettings["secret_key"])
+                        .AddClaim("exp", DateTimeOffset.UtcNow.AddDays(15).ToUnixTimeSeconds())
                         .AddClaim("_id", reader["_id"])
                         .AddClaim("username", reader["username"])
                         .AddClaim("email_id", reader["email_id"])
