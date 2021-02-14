@@ -1,0 +1,8 @@
+USE [ChessDb];
+
+CREATE TABLE EmailTokens (
+    _id BIGINT PRIMARY KEY IDENTITY,
+    user_id BIGINT FOREIGN KEY REFERENCES Users(_id),
+    token BINARY(32) NOT NULL UNIQUE,
+    created_at DATETIME DEFAULT GETDATE()
+);
