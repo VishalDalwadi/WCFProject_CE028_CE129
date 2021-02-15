@@ -66,6 +66,10 @@
       <Project>{29922870-a14e-4b40-ad76-7e27ba5b05f6}</Project>
       <Name>AuthorizationService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\EmailService\EmailService.csproj">
+      <Project>{4a933ee2-2475-4af9-87c7-fa8933b05cd6}</Project>
+      <Name>EmailService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\GamesManagementService\GamesManagementService.csproj">
       <Project>{26f4c634-0a7d-4aad-84d0-6ccf619b257a}</Project>
       <Name>GamesManagementService</Name>
