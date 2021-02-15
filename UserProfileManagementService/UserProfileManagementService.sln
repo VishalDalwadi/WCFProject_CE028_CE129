@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistrationService", "RegistrationService.csproj", "{97F4B8FD-2E7F-4674-A943-32C4036E5C58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserProfileManagementService", "UserProfileManagementService.csproj", "{97F4B8FD-2E7F-4674-A943-32C4036E5C58}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

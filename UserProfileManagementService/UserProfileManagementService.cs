@@ -4,12 +4,12 @@ using System.Configuration;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace RegistrationService
+namespace UserProfileManagementService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "RegistrationService" in both code and config file together.
-    public class RegistrationService : IRegistrationService
+    public class UserProfileManagementService : IUserProfileManagementService
     {
-        void IRegistrationService.RegisterUser(User user)
+        void IUserProfileManagementService.RegisterUser(User user)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
             RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
@@ -35,7 +35,7 @@ namespace RegistrationService
             }
         }
 
-        bool IRegistrationService.IsUsernameTaken(string username)
+        bool IUserProfileManagementService.IsUsernameTaken(string username)
         {
             bool returnVal = false;
             string connectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
@@ -55,7 +55,7 @@ namespace RegistrationService
             return returnVal;
         }
 
-        bool IRegistrationService.UserWithEmailIdExists(string email_id)
+        bool IUserProfileManagementService.UserWithEmailIdExists(string email_id)
         {
             bool returnVal = false;
             string connectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
