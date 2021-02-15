@@ -46,9 +46,25 @@ namespace AuthorizationService
     }
 
     [DataContract]
-    public enum AuthorizationFault
+    public class AuthorizationFault
     {
-        TokenExpired,
-        InvalidSignature
+        public enum AuthorizationFaultType
+        {
+            TokenExpired,
+            InvalidSignature
+        }
+
+        [EnumMember]
+        private AuthorizationFaultType _faultType;
+
+        public AuthorizationFaultType FaultType
+        {
+            get { return _faultType; }
+        }
+
+        public AuthorizationFault(AuthorizationFaultType type)
+        {
+            _faultType = type;
+        }
     }
 }
