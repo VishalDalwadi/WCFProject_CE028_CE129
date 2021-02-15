@@ -19,6 +19,9 @@ namespace UserProfileManagementService
 
         [OperationContract]
         bool UserWithEmailIdExists(string email_id);
+
+        [OperationContract]
+        void SendPasswordResetToken(string email_id);
     }
 
     [DataContract]

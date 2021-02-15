@@ -3,6 +3,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Security.Cryptography;
 using System.Text;
+using System.ServiceModel;
 
 namespace UserProfileManagementService
 {
@@ -73,6 +74,51 @@ namespace UserProfileManagementService
             }
 
             return returnVal;
+        }
+
+        void IUserProfileManagementService.SendPasswordResetToken(string email_id)
+        {
+            try
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
+
+                using (RegistrationService.EmailServiceReference.EmailServiceClient client = new RegistrationService.EmailServiceReference.EmailServiceClient())
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+                    byte[] token = new byte[32];
+                    rng.GetBytes(token);
+                    string message = "Here's your one-time token. This token expires in 24 hours.\n";
+                    message += "TOKEN: " + Encoding.UTF8.GetString(token);
+                    client.SendEmail(email_id, "ChessOnline - Password Reset Token", message, false);
+
+                    Int64 user_id = -1;
+                    SqlCommand command = new SqlCommand("SELECT _id FROM Users WHERE email_id = @email_id", conn);
+                    command.Parameters.AddWithValue("@email_id", email_id);
+                    conn.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        user_id = (long)reader["_id"];
+                    }
+
+                    if (user_id == -1)
+                    {
+                        throw new FaultException("No user with given email id.");
+                    }
+                    else
+                    {
+                        command = new SqlCommand("INSERT INTO EmailTokens (user_id, token) VALUES (@user_id, @token)", conn);
+                        command.Parameters.AddWithValue("@user_id", user_id);
+                        command.Parameters.Add("@token", System.Data.SqlDbType.Binary, token.Length).Value = token;
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new FaultException(ex.Message);
+            }
         }
     }
 }
