@@ -31,11 +31,11 @@ namespace AuthorizationService
             }
             catch (TokenExpiredException)
             {
-                throw new FaultException<AuthorizationFault>(AuthorizationFault.TokenExpired);
+                throw new FaultException<AuthorizationFault>(new AuthorizationFault(AuthorizationFault.AuthorizationFaultType.TokenExpired));
             }
             catch (SignatureVerificationException)
             {
-                throw new FaultException<AuthorizationFault>(AuthorizationFault.InvalidSignature);
+                throw new FaultException<AuthorizationFault>(new AuthorizationFault(AuthorizationFault.AuthorizationFaultType.InvalidSignature));
             }
 
             return user;
