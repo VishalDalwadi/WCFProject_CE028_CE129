@@ -54,9 +54,9 @@ namespace AuthorizationService
             InvalidSignature
         }
 
-        [EnumMember]
         private AuthorizationFaultType _faultType;
 
+        [DataMember]
         public AuthorizationFaultType FaultType
         {
             get { return _faultType; }
