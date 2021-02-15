@@ -90,12 +90,68 @@ namespace GamesManagementService.AuthorizationServiceReference {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="AuthorizationFault", Namespace="http://schemas.datacontract.org/2004/07/AuthorizationService")]
+    [System.SerializableAttribute()]
+    public partial class AuthorizationFault : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private AuthorizationServiceReference.AuthorizationFault.AuthorizationFaultType FaultTypeField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public AuthorizationServiceReference.AuthorizationFault.AuthorizationFaultType FaultType {
+            get {
+                return this.FaultTypeField;
+            }
+            set {
+                if ((this.FaultTypeField.Equals(value) != true)) {
+                    this.FaultTypeField = value;
+                    this.RaisePropertyChanged("FaultType");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+        [System.Runtime.Serialization.DataContractAttribute(Name="AuthorizationFault.AuthorizationFaultType", Namespace="http://schemas.datacontract.org/2004/07/AuthorizationService")]
+        public enum AuthorizationFaultType : int {
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            TokenExpired = 0,
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            InvalidSignature = 1,
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="AuthorizationServiceReference.IAuthorizationService")]
     public interface IAuthorizationService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthorizationService/AuthorizeUser", ReplyAction="http://tempuri.org/IAuthorizationService/AuthorizeUserResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(string), Action="http://tempuri.org/IAuthorizationService/AuthorizeUserAuthorizationFaultFault", Name="AuthorizationFault", Namespace="http://schemas.datacontract.org/2004/07/AuthorizationService")]
+        [System.ServiceModel.FaultContractAttribute(typeof(AuthorizationServiceReference.AuthorizationFault), Action="http://tempuri.org/IAuthorizationService/AuthorizeUserAuthorizationFaultFault", Name="AuthorizationFault", Namespace="http://schemas.datacontract.org/2004/07/AuthorizationService")]
         AuthorizationServiceReference.User AuthorizeUser(string token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthorizationService/AuthorizeUser", ReplyAction="http://tempuri.org/IAuthorizationService/AuthorizeUserResponse")]

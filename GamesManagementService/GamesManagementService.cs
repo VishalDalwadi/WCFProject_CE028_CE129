@@ -14,50 +14,85 @@ namespace GamesManagementService
     {
         void IGamesManagementService.SaveGame(Game game, string token)
         {
-            AuthorizationServiceReference.User user;
-            using (AuthorizationServiceReference.AuthorizationServiceClient client = new AuthorizationServiceReference.AuthorizationServiceClient())
+            try
             {
-                user = client.AuthorizeUser(token);
-            }
+                AuthorizationServiceReference.User user;
+                using (AuthorizationServiceReference.AuthorizationServiceClient client = new AuthorizationServiceReference.AuthorizationServiceClient())
+                {
+                    user = client.AuthorizeUser(token);
+                }
 
-            string connectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
-            using (SqlConnection conn = new SqlConnection(connectionString))
+                string connectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    SqlCommand command = new SqlCommand("INSERT INTO SavedGames (user_id, game_string, played_as) VALUES (@user_id, @game_string, @played_as)", conn);
+                    command.Parameters.AddWithValue("@user_id", user.Id);
+                    command.Parameters.AddWithValue("@game_string", game.GameString);
+                    command.Parameters.AddWithValue("@played_as", game.PlayedAs == Game.Player.White ? 'W' : 'B');
+                    conn.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (FaultException<AuthorizationServiceReference.AuthorizationFault> ex)
             {
-                SqlCommand command = new SqlCommand("INSERT INTO SavedGames (user_id, game_string, played_as) VALUES (@user_id, @game_string, @played_as)", conn);
-                command.Parameters.AddWithValue("@user_id", user.Id);
-                command.Parameters.AddWithValue("@game_string", game.GameString);
-                command.Parameters.AddWithValue("@played_as", game.PlayedAs == Game.Player.White ? 'W' : 'B');
-                conn.Open();
-                command.ExecuteNonQuery();
+                if (ex.Detail.FaultType == AuthorizationServiceReference.AuthorizationFault.AuthorizationFaultType.TokenExpired)
+                {
+                    throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.TokenExpired));
+                }
+                else
+                {
+                    throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.InvalidSignature));
+                }
             }
-
+            catch (Exception ex)
+            {
+                throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.ServerFault));
+            }
         }
 
         List<Game> IGamesManagementService.GetAllSavedGames(string token)
         {
-            AuthorizationServiceReference.User user;
-            using (AuthorizationServiceReference.AuthorizationServiceClient client = new AuthorizationServiceReference.AuthorizationServiceClient())
+            try
             {
-                user = client.AuthorizeUser(token);
-            }
-
-            string connectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
-            List<Game> games = new List<Game>();
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                SqlCommand command = new SqlCommand("SELECT game_string, played_as FROM SavedGames WHERE user_id = @user_id", conn);
-                command.Parameters.AddWithValue("@user_id", user.Id);
-                conn.Open();
-                SqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
+                AuthorizationServiceReference.User user;
+                using (AuthorizationServiceReference.AuthorizationServiceClient client = new AuthorizationServiceReference.AuthorizationServiceClient())
                 {
-                    games.Add(new Game((string)reader["game_string"], (string)reader["played_as"] == "W" ? Game.Player.White : Game.Player.Black));
+                    user = client.AuthorizeUser(token);
+                }
+
+                string connectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
+                List<Game> games = new List<Game>();
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    SqlCommand command = new SqlCommand("SELECT game_string, played_as FROM SavedGames WHERE user_id = @user_id", conn);
+                    command.Parameters.AddWithValue("@user_id", user.Id);
+                    conn.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        games.Add(new Game((string)reader["game_string"], (string)reader["played_as"] == "W" ? Game.Player.White : Game.Player.Black));
+                    }
+                }
+
+                return games;
+            }
+            catch (FaultException<AuthorizationServiceReference.AuthorizationFault> ex)
+            {
+                if (ex.Detail.FaultType == AuthorizationServiceReference.AuthorizationFault.AuthorizationFaultType.TokenExpired)
+                {
+                    throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.TokenExpired));
+                }
+                else
+                {
+                    throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.InvalidSignature));
                 }
             }
-
-            return games;
+            catch (Exception ex)
+            {
+                throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.ServerFault));
+            }
         }
     }
 }

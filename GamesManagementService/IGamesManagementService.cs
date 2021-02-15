@@ -12,9 +12,11 @@ namespace GamesManagementService
     public interface IGamesManagementService
     {
         [OperationContract]
+        [FaultContract(typeof(GamesManagementFault))]
         void SaveGame(Game game, string token);
 
         [OperationContract]
+        [FaultContract(typeof(GamesManagementFault))]
         List<Game> GetAllSavedGames(string token);
     }
 
@@ -49,6 +51,30 @@ namespace GamesManagementService
         {
             _game_string = game_string;
             _played_as = played_as;
+        }
+    }
+
+    [DataContract]
+    public class GamesManagementFault
+    {
+        public enum GamesManagementFaultType
+        {
+            TokenExpired,
+            InvalidSignature,
+            ServerFault
+        }
+
+        [EnumMember]
+        private GamesManagementFaultType _faultType;
+
+        public GamesManagementFaultType FaultType
+        {
+            get { return _faultType; }
+        }
+
+        public GamesManagementFault(GamesManagementFaultType type)
+        {
+            _faultType = type;
         }
     }
 }

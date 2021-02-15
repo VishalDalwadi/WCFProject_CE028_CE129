@@ -8,8 +8,17 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="User" nillable="true" type="tns:User" />
-  <xs:simpleType name="AuthorizationFault">
-    <xs:restriction base="xs:string" />
-  </xs:simpleType>
+  <xs:complexType name="AuthorizationFault">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FaultType" type="tns:AuthorizationFault.AuthorizationFaultType" />
+    </xs:sequence>
+  </xs:complexType>
   <xs:element name="AuthorizationFault" nillable="true" type="tns:AuthorizationFault" />
+  <xs:simpleType name="AuthorizationFault.AuthorizationFaultType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="TokenExpired" />
+      <xs:enumeration value="InvalidSignature" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="AuthorizationFault.AuthorizationFaultType" nillable="true" type="tns:AuthorizationFault.AuthorizationFaultType" />
 </xs:schema>
