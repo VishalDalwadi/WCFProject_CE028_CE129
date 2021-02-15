@@ -71,7 +71,8 @@ namespace AuthenticationService
                     else if (!correct_password)
                     {
                         throw new FaultException<AuthenticationFault>(AuthenticationFault.InvalidPassword);
-                    } else
+                    } 
+                    else
                     {
                         throw new FaultException<AuthenticationFault>(AuthenticationFault.ServerFault);
                     }
