@@ -56,6 +56,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\UPMAuthorizationServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="IUserProfileManagementService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserProfileManagementService.cs" />
@@ -69,6 +74,19 @@
     <None Include="Connected Services\EmailServiceReference\item1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\UPMAuthorizationServiceReference\AuthorizationService.wsdl" />
+    <None Include="Connected Services\UPMAuthorizationServiceReference\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\UPMAuthorizationServiceReference\item1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\UPMAuthorizationServiceReference\item2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\UPMAuthorizationServiceReference\RegistrationService.UPMAuthorizationServiceReference.User.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\EmailServiceReference\" />
+    <WCFMetadataStorage Include="Connected Services\UPMAuthorizationServiceReference\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\EmailServiceReference\item.disco" />
@@ -88,6 +107,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\EmailServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\UPMAuthorizationServiceReference\item.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\UPMAuthorizationServiceReference\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\UPMAuthorizationServiceReference\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\UPMAuthorizationServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
