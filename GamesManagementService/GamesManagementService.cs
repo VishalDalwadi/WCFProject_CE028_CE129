@@ -94,5 +94,39 @@ namespace GamesManagementService
                 throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.ServerFault));
             }
         }
+
+        void IGamesManagementService.DeleteGame(Game game, string token)
+        {
+            try
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
+
+                using (AuthorizationServiceReference.AuthorizationServiceClient client = new AuthorizationServiceReference.AuthorizationServiceClient())
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    _ = client.AuthorizeUser(token);
+
+                    SqlCommand command = new SqlCommand("DELETE FROM SavedGames WHERE _id = @_id", conn);
+                    command.Parameters.AddWithValue("@_id", game.GameId);
+                    conn.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (FaultException<AuthorizationServiceReference.AuthorizationFault> ex)
+            {
+                if (ex.Detail.FaultType == AuthorizationServiceReference.AuthorizationFault.AuthorizationFaultType.TokenExpired)
+                {
+                    throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.TokenExpired));
+                }
+                else
+                {
+                    throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.InvalidSignature));
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.ServerFault));
+            }
+        }
     }
 }

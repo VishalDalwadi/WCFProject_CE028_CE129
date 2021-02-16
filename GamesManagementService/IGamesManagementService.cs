@@ -18,6 +18,9 @@ namespace GamesManagementService
         [OperationContract]
         [FaultContract(typeof(GamesManagementFault))]
         List<Game> GetAllSavedGames(string token);
+
+        [OperationContract]
+        void DeleteGame(Game game, string token);
     }
 
     [DataContract]
