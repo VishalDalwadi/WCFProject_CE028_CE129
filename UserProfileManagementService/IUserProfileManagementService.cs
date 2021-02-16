@@ -22,6 +22,9 @@ namespace UserProfileManagementService
 
         [OperationContract]
         void SendPasswordResetToken(string email_id);
+
+        [OperationContract]
+        void ResetPassword(string token, string email_id, string new_password);
     }
 
     [DataContract]
