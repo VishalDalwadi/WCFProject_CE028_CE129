@@ -25,6 +25,9 @@ namespace UserProfileManagementService
 
         [OperationContract]
         void ResetPassword(string token, string email_id, string new_password);
+
+        [OperationContract]
+        void DeleteUser(string jwtToken);
     }
 
     [DataContract]

@@ -194,5 +194,31 @@ namespace UserProfileManagementService
                 throw new FaultException(ex.Message);
             }
         }
+
+        void IUserProfileManagementService.DeleteUser(string jwtToken)
+        {
+            try
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
+
+                using (RegistrationService.UPMAuthorizationServiceReference.AuthorizationServiceClient client = new RegistrationService.UPMAuthorizationServiceReference.AuthorizationServiceClient())
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    RegistrationService.UPMAuthorizationServiceReference.User user = client.AuthorizeUser(jwtToken);
+                    SqlCommand command = new SqlCommand("DELETE FROM Users WHERE _id = @_id", conn);
+                    command.Parameters.AddWithValue("@_id", user.Id);
+                    conn.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (FaultException<RegistrationService.UPMAuthorizationServiceReference.AuthorizationFault> ex)
+            {
+                throw ex;
+            }
+            catch (Exception)
+            {
+                throw new FaultException("ServerFault");
+            }
+        }
     }
 }
