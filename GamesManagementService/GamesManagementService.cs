@@ -65,14 +65,14 @@ namespace GamesManagementService
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    SqlCommand command = new SqlCommand("SELECT game_string, played_as FROM SavedGames WHERE user_id = @user_id", conn);
+                    SqlCommand command = new SqlCommand("SELECT _id, game_string, played_as FROM SavedGames WHERE user_id = @user_id", conn);
                     command.Parameters.AddWithValue("@user_id", user.Id);
                     conn.Open();
                     SqlDataReader reader = command.ExecuteReader();
 
                     while (reader.Read())
                     {
-                        games.Add(new Game((string)reader["game_string"], (string)reader["played_as"] == "W" ? Game.Player.White : Game.Player.Black));
+                        games.Add(new Game((Int64)reader["_id"], (string)reader["game_string"], (string)reader["played_as"] == "W" ? Game.Player.White : Game.Player.Black));
                     }
                 }
 
