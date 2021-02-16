@@ -65,18 +65,52 @@ namespace GamesManagementService
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    SqlCommand command = new SqlCommand("SELECT game_string, played_as FROM SavedGames WHERE user_id = @user_id", conn);
+                    SqlCommand command = new SqlCommand("SELECT _id, game_string, played_as FROM SavedGames WHERE user_id = @user_id", conn);
                     command.Parameters.AddWithValue("@user_id", user.Id);
                     conn.Open();
                     SqlDataReader reader = command.ExecuteReader();
 
                     while (reader.Read())
                     {
-                        games.Add(new Game((string)reader["game_string"], (string)reader["played_as"] == "W" ? Game.Player.White : Game.Player.Black));
+                        games.Add(new Game((Int64)reader["_id"], (string)reader["game_string"], (string)reader["played_as"] == "W" ? Game.Player.White : Game.Player.Black));
                     }
                 }
 
                 return games;
+            }
+            catch (FaultException<AuthorizationServiceReference.AuthorizationFault> ex)
+            {
+                if (ex.Detail.FaultType == AuthorizationServiceReference.AuthorizationFault.AuthorizationFaultType.TokenExpired)
+                {
+                    throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.TokenExpired));
+                }
+                else
+                {
+                    throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.InvalidSignature));
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.ServerFault));
+            }
+        }
+
+        void IGamesManagementService.DeleteGame(Game game, string token)
+        {
+            try
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
+
+                using (AuthorizationServiceReference.AuthorizationServiceClient client = new AuthorizationServiceReference.AuthorizationServiceClient())
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    _ = client.AuthorizeUser(token);
+
+                    SqlCommand command = new SqlCommand("DELETE FROM SavedGames WHERE _id = @_id", conn);
+                    command.Parameters.AddWithValue("@_id", game.GameId);
+                    conn.Open();
+                    command.ExecuteNonQuery();
+                }
             }
             catch (FaultException<AuthorizationServiceReference.AuthorizationFault> ex)
             {
