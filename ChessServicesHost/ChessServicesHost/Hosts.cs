@@ -20,12 +20,6 @@ namespace ChessServicesHost
                 Console.WriteLine("Authentication Service Host Started at " + DateTime.Now.ToString());
             }
 
-            using (ServiceHost authorhost = new ServiceHost(typeof(AuthorizationService.AuthorizationService)))
-            {
-                authorhost.Open();
-                Console.WriteLine("Authorization Service Host Started at " + DateTime.Now.ToString());
-            }
-
             using (ServiceHost gmshost = new ServiceHost(typeof(GamesManagementService.GamesManagementService)))
             {
                 gmshost.Open();
@@ -35,7 +29,13 @@ namespace ChessServicesHost
             using (ServiceHost upmhost = new ServiceHost(typeof(UserProfileManagementService.UserProfileManagementService)))
             {
                 upmhost.Open();
-                Console.WriteLine("User Profile Management Service Host Started at " + DateTime.Now.ToString());
+                Console.WriteLine("User Profile Management Service Host Started at " + DateTime.Now.ToString());               
+            }
+
+            using (ServiceHost authorhost = new ServiceHost(typeof(AuthorizationService.AuthorizationService)))
+            {
+                authorhost.Open();
+                Console.WriteLine("Authorization Service Host Started at " + DateTime.Now.ToString());
                 Console.ReadLine();
             }
         }

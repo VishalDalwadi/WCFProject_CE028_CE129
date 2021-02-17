@@ -16,6 +16,7 @@ namespace GamesManagementService
 
         [OperationContract]
         List<Game> GetAllSavedGames(string token);
+        string AddPlayer(string token);
     }
 
     [DataContract]

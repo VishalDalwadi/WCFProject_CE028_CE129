@@ -49,5 +49,12 @@ namespace GamesManagementService
 
             return games;
         }
+
+        string IGamesManagementService.AddPlayer(string token)
+        {
+            AuthorizationService.AuthorizationServiceClient client = new AuthorizationService.AuthorizationServiceClient();
+            AuthorizationService.User player = client.AuthorizeUser(token);
+            return "";
+        }
     }
 }
