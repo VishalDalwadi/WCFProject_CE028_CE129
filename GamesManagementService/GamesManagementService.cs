@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
-
+using StackExchange.Redis;
 namespace GamesManagementService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "GamesManagementService" in both code and config file together.
@@ -129,11 +129,37 @@ namespace GamesManagementService
             }
         }
 
-        string IGamesManagementService.AddPlayer(string token)
+        void IGamesManagementService.AddPlayer(string token)
         {
-            AuthorizationService.AuthorizationServiceClient client = new AuthorizationService.AuthorizationServiceClient();
-            AuthorizationService.User player = client.AuthorizeUser(token);
-            return "";
+            try
+            {
+                using (AuthorizationServiceReference.AuthorizationServiceClient client = new AuthorizationServiceReference.AuthorizationServiceClient())
+                {
+                    AuthorizationServiceReference.User player = client.AuthorizeUser(token);           
+                    ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(ConfigurationManager.AppSettings.Get("redis_connection_string"));                                      
+                    RedisKey playerListKey = new RedisKey("PlayerList");
+                    IDatabase database = redis.GetDatabase();
+                    string userID = Convert.ToString(AuthorizationServiceReference.User._id);
+                    database.ListLeftPush(playerListKey, userID);
+                    ISubscriber subscriber = redis.GetSubscriber();
+                    subscriber.Publish("PlayerAddEvents", userID);                    
+                }
+            }
+            catch (FaultException<AuthorizationServiceReference.AuthorizationFault> ex)
+            {
+                if (ex.Detail.FaultType == AuthorizationServiceReference.AuthorizationFault.AuthorizationFaultType.TokenExpired)
+                {
+                    throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.TokenExpired));
+                }
+                else
+                {
+                    throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.InvalidSignature));
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.ServerFault));
+            }
         }
     }
 }
