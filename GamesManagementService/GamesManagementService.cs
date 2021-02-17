@@ -106,7 +106,7 @@ namespace GamesManagementService
                 using (AuthorizationServiceReference.AuthorizationServiceClient client = new AuthorizationServiceReference.AuthorizationServiceClient())
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    _ = client.AuthorizeUser(token);
+                    client.AuthorizeUser(token);
 
                     SqlCommand command = new SqlCommand("DELETE FROM SavedGames WHERE _id = @_id", conn);
                     command.Parameters.AddWithValue("@_id", game.GameId);
