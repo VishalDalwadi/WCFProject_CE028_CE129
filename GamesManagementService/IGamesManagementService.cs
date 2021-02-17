@@ -25,7 +25,7 @@ namespace GamesManagementService
 
         [OperationContract]
         [FaultContract(typeof(GamesManagementFault))]
-        string AddPlayer(string token);
+        string FindMatch(string token);
     }
 
     [DataContract]

@@ -8,6 +8,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading;
 using StackExchange.Redis;
+using AuthorizationServiceReference;
 namespace GamesManagementService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "GamesManagementService" in both code and config file together.
@@ -130,7 +131,7 @@ namespace GamesManagementService
             }
         }
 
-        string IGamesManagementService.AddPlayer(string token)
+        string IGamesManagementService.FindMatch(string token)
         {
             string game_topic = null;
             try
@@ -142,7 +143,7 @@ namespace GamesManagementService
                     RedisKey playerListKey = new RedisKey("PlayerList");
                     IDatabase database = redis.GetDatabase();
                     string userID = Convert.ToString(AuthorizationServiceReference.User._id);
-                    database.ListLeftPush(playerListKey, userID);
+                    database.ListRightPush(playerListKey, userID);
                     ISubscriber subscriber = redis.GetSubscriber();
                     subscriber.Publish("PlayerAddEvents", userID);
                     for (int i = 0; i < 60; i++)
@@ -153,7 +154,10 @@ namespace GamesManagementService
                             break;
                     }
                     if (game_topic == null)
+                    {
+                        database.ListRemove(playerListKey, userID);
                         throw new TimeoutException();
+                    }
                     return game_topic;
                 }
             }
