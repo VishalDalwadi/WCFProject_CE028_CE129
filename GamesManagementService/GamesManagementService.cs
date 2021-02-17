@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StackExchange.Redis;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Threading;
 
 namespace GamesManagementService
 {
@@ -44,7 +46,7 @@ namespace GamesManagementService
                     throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.InvalidSignature));
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.ServerFault));
             }
@@ -89,7 +91,7 @@ namespace GamesManagementService
                     throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.InvalidSignature));
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.ServerFault));
             }
@@ -123,7 +125,7 @@ namespace GamesManagementService
                     throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.InvalidSignature));
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.ServerFault));
             }
@@ -140,7 +142,7 @@ namespace GamesManagementService
                     ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(ConfigurationManager.AppSettings.Get("redis_connection_string"));
                     RedisKey playerListKey = new RedisKey("PlayerList");
                     IDatabase database = redis.GetDatabase();
-                    string userID = Convert.ToString(AuthorizationServiceReference.User._id);
+                    string userID = Convert.ToString(player.Id);
                     database.ListRightPush(playerListKey, userID);
                     ISubscriber subscriber = redis.GetSubscriber();
                     subscriber.Publish("PlayerAddEvents", userID);
@@ -170,11 +172,11 @@ namespace GamesManagementService
                     throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.InvalidSignature));
                 }
             }
-            catch (TimeoutException ex)
+            catch (TimeoutException)
             {
                 throw new TimeoutException();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.ServerFault));
             }
