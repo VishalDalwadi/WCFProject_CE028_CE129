@@ -21,6 +21,10 @@ namespace GamesManagementService
 
         [OperationContract]
         void DeleteGame(Game game, string token);
+        
+        [OperationContract]
+        [FaultContract(typeof(GamesManagementFault))]
+        string FindMatch(string token);
     }
 
     [DataContract]
