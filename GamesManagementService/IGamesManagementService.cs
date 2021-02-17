@@ -37,10 +37,10 @@ namespace GamesManagementService
         string StartingGame(Game.Player playing_as);
 
         [OperationContract]
-        void ReceivedMessage(string message);
+        bool ReceivedMessage(string message);
 
         [OperationContract]
-        string SendingMessage();
+        (bool, string) SendingMessage();
     }
 
     [DataContract]
