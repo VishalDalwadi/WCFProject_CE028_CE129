@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Threading;
 using StackExchange.Redis;
 namespace GamesManagementService
 {
@@ -129,20 +130,31 @@ namespace GamesManagementService
             }
         }
 
-        void IGamesManagementService.AddPlayer(string token)
+        string IGamesManagementService.AddPlayer(string token)
         {
+            string game_topic = null;
             try
             {
                 using (AuthorizationServiceReference.AuthorizationServiceClient client = new AuthorizationServiceReference.AuthorizationServiceClient())
                 {
-                    AuthorizationServiceReference.User player = client.AuthorizeUser(token);           
-                    ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(ConfigurationManager.AppSettings.Get("redis_connection_string"));                                      
+                    AuthorizationServiceReference.User player = client.AuthorizeUser(token);
+                    ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(ConfigurationManager.AppSettings.Get("redis_connection_string"));
                     RedisKey playerListKey = new RedisKey("PlayerList");
                     IDatabase database = redis.GetDatabase();
                     string userID = Convert.ToString(AuthorizationServiceReference.User._id);
                     database.ListLeftPush(playerListKey, userID);
                     ISubscriber subscriber = redis.GetSubscriber();
-                    subscriber.Publish("PlayerAddEvents", userID);                    
+                    subscriber.Publish("PlayerAddEvents", userID);
+                    for (int i = 0; i < 60; i++)
+                    {
+                        Thread.Sleep(500);
+                        game_topic = database.StringGet(userID);
+                        if (game_topic != null)
+                            break;
+                    }
+                    if (game_topic == null)
+                        throw new TimeoutException();
+                    return game_topic;
                 }
             }
             catch (FaultException<AuthorizationServiceReference.AuthorizationFault> ex)
@@ -155,6 +167,10 @@ namespace GamesManagementService
                 {
                     throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.InvalidSignature));
                 }
+            }
+            catch (TimeoutException ex)
+            {
+                throw new TimeoutException();
             }
             catch (Exception ex)
             {
