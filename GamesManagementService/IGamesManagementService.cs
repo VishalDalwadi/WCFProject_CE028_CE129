@@ -8,7 +8,7 @@ using System.Text;
 namespace GamesManagementService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IGamesManagementService" in both code and config file together.
-    [ServiceContract]
+    [ServiceContract(CallbackContract = typeof(IGameActions))]
     public interface IGamesManagementService
     {
         [OperationContract]
@@ -25,6 +25,22 @@ namespace GamesManagementService
         [OperationContract]
         [FaultContract(typeof(GamesManagementFault))]
         string FindMatch(string token);
+
+        [OperationContract]
+        [FaultContract(typeof(GamesManagementFault))]
+        void ManageActiveGame(string game_topic, string token);
+    }
+
+    public interface IGameActions
+    {
+        [OperationContract]
+        string StartingGame(Game.Player playing_as);
+
+        [OperationContract]
+        void ReceivedMessage(string message);
+
+        [OperationContract]
+        string SendingMessage();
     }
 
     [DataContract]
