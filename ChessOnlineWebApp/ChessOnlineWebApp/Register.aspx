@@ -7,10 +7,10 @@
     <title></title>
 </head>
 <body>
+    <a href="Home.aspx">Back to Home</a>
     <form id="form1" runat="server">
         <h3>Register</h3>
         <div>
-
             Username:&nbsp;
             <asp:TextBox ID="Username" runat="server"></asp:TextBox>
             <br />
@@ -19,7 +19,8 @@
             <asp:TextBox ID="EmailID" runat="server"></asp:TextBox>
             <br />
             <br />
-            Password:&nbsp; <asp:TextBox ID="Password" TextMode="Password" runat="server"></asp:TextBox>
+            Password:&nbsp;
+            <asp:TextBox ID="Password" TextMode="Password" runat="server"></asp:TextBox>
             <br />
             <br />
             <asp:Button ID="RegisterButton" runat="server" OnClick="Register_Click" Text="Register" />

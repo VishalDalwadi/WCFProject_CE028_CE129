@@ -25,10 +25,12 @@ namespace ChessOnlineWebApp
                 try
                 {
                     string token = client.AreCorrectCredentials(username, password);
+                    Session["username"] = username;
                     HttpCookie token_cookie = new HttpCookie("token_cookie");
                     token_cookie.HttpOnly = true;
                     token_cookie.Value = token;
                     MsgLabel.Text = "Login was successful";
+                    Response.Cookies.Add(token_cookie);
                 }
                 catch (FaultException<AuthenticationServiceReference.AuthenticationFault> ex)
                 {
