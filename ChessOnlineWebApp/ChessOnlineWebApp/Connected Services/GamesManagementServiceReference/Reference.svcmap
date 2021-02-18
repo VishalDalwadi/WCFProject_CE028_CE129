@@ -24,9 +24,10 @@
   <Metadata>
     <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="2eadc789-21ef-4fff-b9f7-ad0b0a412865" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/GamesManagementService/GamesManagementService/?xsd=xsd1" />
     <MetadataFile FileName="item.disco" MetadataType="Disco" ID="ff5ffdd6-5460-4b9b-be38-7fdf75a3d248" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/GamesManagementService/GamesManagementService/?disco" />
-    <MetadataFile FileName="GamesManagementService.wsdl" MetadataType="Wsdl" ID="4f6fec66-bf7c-40c9-b374-f7c9ed3dcca2" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/GamesManagementService/GamesManagementService/?wsdl" />
-    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="13b67db9-9508-4dec-bce8-2a4f85910681" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/GamesManagementService/GamesManagementService/?xsd=xsd0" />
     <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="9da3aca9-f68d-4f59-8214-965c98b1719c" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/GamesManagementService/GamesManagementService/?xsd=xsd2" />
+    <MetadataFile FileName="GamesManagementService.wsdl" MetadataType="Wsdl" ID="4f6fec66-bf7c-40c9-b374-f7c9ed3dcca2" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/GamesManagementService/GamesManagementService/?wsdl" />
+    <MetadataFile FileName="item3.xsd" MetadataType="Schema" ID="87663c79-d495-4876-9656-9385abe297db" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/GamesManagementService/GamesManagementService/?xsd=xsd3" />
+    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="13b67db9-9508-4dec-bce8-2a4f85910681" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/GamesManagementService/GamesManagementService/?xsd=xsd0" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

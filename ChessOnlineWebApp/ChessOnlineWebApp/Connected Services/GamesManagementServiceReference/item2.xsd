@@ -16,9 +16,19 @@
   </xs:simpleType>
   <xs:element name="Game.Player" nillable="true" type="tns:Game.Player" />
   <xs:complexType name="GamesManagementFault">
-    <xs:sequence />
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FaultType" type="tns:GamesManagementFault.GamesManagementFaultType" />
+    </xs:sequence>
   </xs:complexType>
   <xs:element name="GamesManagementFault" nillable="true" type="tns:GamesManagementFault" />
+  <xs:simpleType name="GamesManagementFault.GamesManagementFaultType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="TokenExpired" />
+      <xs:enumeration value="InvalidSignature" />
+      <xs:enumeration value="ServerFault" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="GamesManagementFault.GamesManagementFaultType" nillable="true" type="tns:GamesManagementFault.GamesManagementFaultType" />
   <xs:complexType name="ArrayOfGame">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Game" nillable="true" type="tns:Game" />
