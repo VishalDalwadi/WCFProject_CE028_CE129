@@ -96,9 +96,9 @@ namespace GamesManagementService
             ServerFault
         }
 
-        [EnumMember]
         private GamesManagementFaultType _faultType;
 
+        [DataMember]
         public GamesManagementFaultType FaultType
         {
             get { return _faultType; }
