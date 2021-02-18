@@ -42,7 +42,7 @@ namespace ChessOnlineWebApp
                 }
                 catch (Exception)
                 {
-                    ErrorLabel.Text = "An Unexpected error occuured :/\n";
+                    ErrorLabel.Text = "Username or Password is incorrect :/\n";
                 }
 
             }
