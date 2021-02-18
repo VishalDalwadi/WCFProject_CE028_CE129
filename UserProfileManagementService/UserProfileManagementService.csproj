@@ -66,7 +66,6 @@
     <Compile Include="UserProfileManagementService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Connected Services\EmailServiceReference\EmailService.wsdl" />
     <None Include="Connected Services\EmailServiceReference\item.xsd">
       <SubType>Designer</SubType>
