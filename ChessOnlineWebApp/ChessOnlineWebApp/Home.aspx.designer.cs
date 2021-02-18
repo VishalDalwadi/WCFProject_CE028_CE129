@@ -15,21 +15,66 @@ namespace ChessOnlineWebApp
     {
 
         /// <summary>
-        /// logout_button control.
+        /// Button1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button logout_button;
+        protected global::System.Web.UI.WebControls.Button Button1;
 
         /// <summary>
-        /// ErrorMessage control.
+        /// find_player_button control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ErrorMessage;
+        protected global::System.Web.UI.WebControls.Button find_player_button;
+
+        /// <summary>
+        /// start_game_button control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button start_game_button;
+
+        /// <summary>
+        /// resign_game_button control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button resign_game_button;
+
+        /// <summary>
+        /// show_saved_game control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button show_saved_game;
+
+        /// <summary>
+        /// next_saved_move control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button next_saved_move;
+
+        /// <summary>
+        /// previous_saved_move control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button previous_saved_move;
     }
 }
