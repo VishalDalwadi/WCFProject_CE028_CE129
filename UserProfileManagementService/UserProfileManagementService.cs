@@ -89,7 +89,7 @@ namespace UserProfileManagementService
                     byte[] token = new byte[32];
                     rng.GetBytes(token);
                     string message = "Here's your one-time token. This token expires in 24 hours.\n";
-                    message += "TOKEN: " + Encoding.UTF8.GetString(token);
+                    message += "TOKEN: " + GetString(token);
                     client.SendEmail(email_id, "ChessOnline - Password Reset Token", message, false);
 
                     Int64 user_id = -1;
@@ -157,7 +157,7 @@ namespace UserProfileManagementService
                         if (reader.Read())
                         {
                             token_bytes = (byte[])reader["token"];
-                            string expected_token = Encoding.UTF8.GetString(token_bytes);
+                            string expected_token = GetString(token_bytes);
                             if (expected_token.Equals(token))
                             {
                                 RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
@@ -219,6 +219,25 @@ namespace UserProfileManagementService
             {
                 throw new FaultException("ServerFault");
             }
+        }
+
+        static string GetString(byte[] bytes)
+        {
+            string returnVal = "";
+
+            foreach (byte b in bytes)
+            {
+                if (Char.IsLetter((char)b))
+                {
+                    returnVal += (char)b;
+                }
+                else
+                {
+                    returnVal += b;
+                }
+            }
+
+            return returnVal;
         }
     }
 }
