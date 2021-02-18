@@ -38,7 +38,9 @@ namespace ChessOnlineWebApp
                     user.Password = pwd;
                     user.EmailID = email;
                     client.RegisterUser(user);
-                    //Response.Redirect("Login.aspx?msg=Registered Successfully");
+                    StatusMsg.ForeColor = System.Drawing.Color.Green;
+                    StatusMsg.Text = "Registration Successful! Redirecting you to Login page ...";
+                    Response.AddHeader("REFRESH", "3;URL=Login.aspx");
                 }
                 else
                 {

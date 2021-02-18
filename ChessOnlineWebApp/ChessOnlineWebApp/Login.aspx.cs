@@ -11,11 +11,9 @@ namespace ChessOnlineWebApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string msg = Request.QueryString["msg"];
-            if (msg != null)
-                msg += "\n";
-            MsgLabel.Text = msg;
+
         }
+
         protected void LoginButton_Click(object sender, EventArgs e)
         {
             string username = Username.Text;
@@ -29,8 +27,9 @@ namespace ChessOnlineWebApp
                     HttpCookie token_cookie = new HttpCookie("token_cookie");
                     token_cookie.HttpOnly = true;
                     token_cookie.Value = token;
-                    MsgLabel.Text = "Login was successful";
+                    token_cookie.Expires = DateTime.Now.AddDays(15).AddSeconds(-1);
                     Response.Cookies.Add(token_cookie);
+                    Response.Redirect("~/Home.aspx");
                 }
                 catch (FaultException<AuthenticationServiceReference.AuthenticationFault> ex)
                 {
@@ -41,7 +40,7 @@ namespace ChessOnlineWebApp
                     if (ex.Detail.FaultType == AuthenticationServiceReference.AuthenticationFault.AuthenticationFaultType.ServerFault)
                         ErrorLabel.Text = "The server encountered an error while processing your request. Please try again.\n";
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     ErrorLabel.Text = "An Unexpected error occuured :/\n";
                 }

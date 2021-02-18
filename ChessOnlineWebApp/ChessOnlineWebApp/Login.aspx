@@ -10,7 +10,6 @@
     <a href="Home.aspx">Back to Home</a>
     <form id="form1" runat="server">
         <h3>Login</h3>
-        <asp:Label ID="MsgLabel" runat="server" ForeColor="Green" Text=""></asp:Label>
         <div>
             Username:
             <asp:TextBox ID="Username" runat="server"></asp:TextBox>
