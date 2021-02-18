@@ -85,13 +85,10 @@ namespace UserProfileManagementService
                 using (RegistrationService.EmailServiceReference.EmailServiceClient client = new RegistrationService.EmailServiceReference.EmailServiceClient())
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
-                    byte[] token = new byte[32];
-                    rng.GetBytes(token);
+                    string token = Guid.NewGuid().ToString();
                     string message = "Here's your one-time token. This token expires in 24 hours.\n";
-                    message += "TOKEN: " + Encoding.UTF8.GetString(token);
-                    client.SendEmail(email_id, "ChessOnline - Password Reset Token", message, false);
-
+                    message += "TOKEN: " + token;
+                    
                     Int64 user_id = -1;
                     SqlCommand command = new SqlCommand("SELECT _id FROM Users WHERE email_id = @email_id", conn);
                     command.Parameters.AddWithValue("@email_id", email_id);
@@ -99,7 +96,7 @@ namespace UserProfileManagementService
                     SqlDataReader reader = command.ExecuteReader();
                     if (reader.Read())
                     {
-                        user_id = (long)reader["_id"];
+                        user_id = Convert.ToInt64(reader["_id"]);
                     }
 
                     if (user_id == -1)
@@ -108,14 +105,15 @@ namespace UserProfileManagementService
                     }
                     else
                     {
-                        command = new SqlCommand("IF EXISTS(SELECT * FROM EmailToken WHERE user_id = @user_id)" +
-                            "UPDATE EmailTokens SET token = @token WHERE user_id = @user_id" +
-                            "ELSE" +
-                            "INSERT INTO EmailTokens (user_id, token) VALUES (@user_id, @token);", conn);
-                        command.Parameters.AddWithValue("@user_id", user_id);
-                        command.Parameters.Add("@token", System.Data.SqlDbType.Binary, token.Length).Value = token;
+                        command = new SqlCommand("IF EXISTS(SELECT * FROM EmailTokens WHERE user_id = @user_id)" +
+                            " UPDATE EmailTokens SET token = @token WHERE user_id = @user_id" +
+                            " ELSE" +
+                            " INSERT INTO EmailTokens (user_id, token) VALUES (@user_id, @token);", conn);
+                        command.Parameters.AddWithValue("@user_id", Convert.ToString(user_id));
+                        command.Parameters.Add("@token", System.Data.SqlDbType.Binary, token.Length).Value = Encoding.ASCII.GetBytes(token);
                         command.ExecuteNonQuery();
                     }
+                    client.SendEmail(email_id, "ChessOnline - Password Reset Token", message, false);
                 }
             }
             catch (Exception ex)
@@ -142,7 +140,7 @@ namespace UserProfileManagementService
                     SqlDataReader reader = command.ExecuteReader();
                     if (reader.Read())
                     {
-                        user_id = (long)reader["_id"];
+                        user_id = Convert.ToInt64(reader["_id"]);
                     }
 
                     if (user_id == -1)
@@ -152,7 +150,7 @@ namespace UserProfileManagementService
                     else
                     {
                         command = new SqlCommand("SELECT token FROM EmailTokens WHERE user_id = @user_id", conn);
-                        command.Parameters.AddWithValue("@user_id", user_id);
+                        command.Parameters.AddWithValue("@user_id", Convert.ToString(user_id));
                         reader = command.ExecuteReader();
                         if (reader.Read())
                         {
@@ -174,7 +172,7 @@ namespace UserProfileManagementService
                                 command = new SqlCommand("UPDATE Users SET hashed_password = @hashed_password, salt = @salt WHERE _id = @_id");
                                 command.Parameters.Add("@hashed_password", System.Data.SqlDbType.Binary, hashed_password.Length).Value = hashed_password;
                                 command.Parameters.Add("@salt", System.Data.SqlDbType.Binary, salt.Length).Value = salt;
-                                command.Parameters.AddWithValue("@_id", user_id);
+                                command.Parameters.AddWithValue("@_id", Convert.ToString(user_id));
                                 command.ExecuteNonQuery();
                             }
                             else
