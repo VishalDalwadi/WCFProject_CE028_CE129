@@ -241,7 +241,7 @@ namespace ChessOnlineWebApp.GamesManagementServiceReference {
         public GamesManagementServiceClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(callbackInstance, binding, remoteAddress) {
         }
-        
+
         public void SaveGame(ChessOnlineWebApp.GamesManagementServiceReference.Game game, string token) {
             base.Channel.SaveGame(game, token);
         }
