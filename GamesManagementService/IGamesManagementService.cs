@@ -26,7 +26,7 @@ namespace GamesManagementService
         [FaultContract(typeof(GamesManagementFault))]
         string FindMatch(string token);
 
-        [OperationContract(IsOneWay = true)]
+        [OperationContract]
         [FaultContract(typeof(GamesManagementFault))]
         void ManageActiveGame(string game_topic, string token);
     }
