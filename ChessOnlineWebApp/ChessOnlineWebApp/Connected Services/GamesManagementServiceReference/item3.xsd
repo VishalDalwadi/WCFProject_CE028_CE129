@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:8733/Design_Time_Addresses/GamesManagementService/GamesManagementService/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/GamesManagementService" />
-  <xs:import schemaLocation="http://localhost:8733/Design_Time_Addresses/GamesManagementService/GamesManagementService/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System" />
   <xs:element name="SaveGame">
     <xs:complexType>
       <xs:sequence>
@@ -53,59 +52,6 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="FindMatchResult" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ManageActiveGame">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="game_topic" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="token" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ManageActiveGameResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="StartingGame">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/GamesManagementService" minOccurs="0" name="playing_as" type="q4:Game.Player" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="StartingGameResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="StartingGameResult" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ReceivedMessage">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ReceivedMessageResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="ReceivedMessageResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="SendingMessage">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="SendingMessageResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="SendingMessageResult" type="q5:ValueTupleOfbooleanstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

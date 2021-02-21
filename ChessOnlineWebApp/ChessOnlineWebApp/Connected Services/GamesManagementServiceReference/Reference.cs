@@ -161,7 +161,7 @@ namespace ChessOnlineWebApp.GamesManagementServiceReference {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="GamesManagementServiceReference.IGamesManagementService", CallbackContract=typeof(ChessOnlineWebApp.GamesManagementServiceReference.IGamesManagementServiceCallback))]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="GamesManagementServiceReference.IGamesManagementService")]
     public interface IGamesManagementService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGamesManagementService/SaveGame", ReplyAction="http://tempuri.org/IGamesManagementService/SaveGameResponse")]
@@ -191,27 +191,6 @@ namespace ChessOnlineWebApp.GamesManagementServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGamesManagementService/FindMatch", ReplyAction="http://tempuri.org/IGamesManagementService/FindMatchResponse")]
         System.Threading.Tasks.Task<string> FindMatchAsync(string token);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGamesManagementService/ManageActiveGame", ReplyAction="http://tempuri.org/IGamesManagementService/ManageActiveGameResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(ChessOnlineWebApp.GamesManagementServiceReference.GamesManagementFault), Action="http://tempuri.org/IGamesManagementService/ManageActiveGameGamesManagementFaultFa" +
-            "ult", Name="GamesManagementFault", Namespace="http://schemas.datacontract.org/2004/07/GamesManagementService")]
-        void ManageActiveGame(string game_topic, string token);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGamesManagementService/ManageActiveGame", ReplyAction="http://tempuri.org/IGamesManagementService/ManageActiveGameResponse")]
-        System.Threading.Tasks.Task ManageActiveGameAsync(string game_topic, string token);
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IGamesManagementServiceCallback {
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGamesManagementService/StartingGame", ReplyAction="http://tempuri.org/IGamesManagementService/StartingGameResponse")]
-        string StartingGame(ChessOnlineWebApp.GamesManagementServiceReference.Game.Player playing_as);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGamesManagementService/ReceivedMessage", ReplyAction="http://tempuri.org/IGamesManagementService/ReceivedMessageResponse")]
-        bool ReceivedMessage(string message);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGamesManagementService/SendingMessage", ReplyAction="http://tempuri.org/IGamesManagementService/SendingMessageResponse")]
-        System.ValueTuple<bool, string> SendingMessage();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -220,28 +199,27 @@ namespace ChessOnlineWebApp.GamesManagementServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class GamesManagementServiceClient : System.ServiceModel.DuplexClientBase<ChessOnlineWebApp.GamesManagementServiceReference.IGamesManagementService>, ChessOnlineWebApp.GamesManagementServiceReference.IGamesManagementService {
+    public partial class GamesManagementServiceClient : System.ServiceModel.ClientBase<ChessOnlineWebApp.GamesManagementServiceReference.IGamesManagementService>, ChessOnlineWebApp.GamesManagementServiceReference.IGamesManagementService {
         
-        public GamesManagementServiceClient(System.ServiceModel.InstanceContext callbackInstance) : 
-                base(callbackInstance) {
+        public GamesManagementServiceClient() {
         }
         
-        public GamesManagementServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
-                base(callbackInstance, endpointConfigurationName) {
+        public GamesManagementServiceClient(string endpointConfigurationName) : 
+                base(endpointConfigurationName) {
         }
         
-        public GamesManagementServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
-                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        public GamesManagementServiceClient(string endpointConfigurationName, string remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
         }
         
-        public GamesManagementServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        public GamesManagementServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
         }
         
-        public GamesManagementServiceClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(callbackInstance, binding, remoteAddress) {
+        public GamesManagementServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(binding, remoteAddress) {
         }
-
+        
         public void SaveGame(ChessOnlineWebApp.GamesManagementServiceReference.Game game, string token) {
             base.Channel.SaveGame(game, token);
         }
@@ -272,14 +250,6 @@ namespace ChessOnlineWebApp.GamesManagementServiceReference {
         
         public System.Threading.Tasks.Task<string> FindMatchAsync(string token) {
             return base.Channel.FindMatchAsync(token);
-        }
-        
-        public void ManageActiveGame(string game_topic, string token) {
-            base.Channel.ManageActiveGame(game_topic, token);
-        }
-        
-        public System.Threading.Tasks.Task ManageActiveGameAsync(string game_topic, string token) {
-            return base.Channel.ManageActiveGameAsync(game_topic, token);
         }
     }
 }
