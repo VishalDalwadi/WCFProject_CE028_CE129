@@ -110,6 +110,9 @@ namespace ChessOnlineWebApp.GamesManagementServiceReference {
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private ChessOnlineWebApp.GamesManagementServiceReference.GamesManagementFault.GamesManagementFaultType FaultTypeField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -120,6 +123,19 @@ namespace ChessOnlineWebApp.GamesManagementServiceReference {
             }
         }
         
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public ChessOnlineWebApp.GamesManagementServiceReference.GamesManagementFault.GamesManagementFaultType FaultType {
+            get {
+                return this.FaultTypeField;
+            }
+            set {
+                if ((this.FaultTypeField.Equals(value) != true)) {
+                    this.FaultTypeField = value;
+                    this.RaisePropertyChanged("FaultType");
+                }
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -127,6 +143,20 @@ namespace ChessOnlineWebApp.GamesManagementServiceReference {
             if ((propertyChanged != null)) {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+        [System.Runtime.Serialization.DataContractAttribute(Name="GamesManagementFault.GamesManagementFaultType", Namespace="http://schemas.datacontract.org/2004/07/GamesManagementService")]
+        public enum GamesManagementFaultType : int {
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            TokenExpired = 0,
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            InvalidSignature = 1,
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            ServerFault = 2,
         }
     }
     

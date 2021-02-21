@@ -151,12 +151,15 @@ namespace GamesManagementService
                     {
                         Thread.Sleep(500);
                         game_topic = database.StringGet(userID);
+                        database.KeyDelete(userID);
                         if (game_topic != null)
+                        {
                             break;
+                        }
                     }
+                    database.ListRemove(playerListKey, userID);
                     if (game_topic == null)
                     {
-                        database.ListRemove(playerListKey, userID);
                         throw new TimeoutException();
                     }
                     return game_topic;
@@ -176,53 +179,6 @@ namespace GamesManagementService
             catch (TimeoutException)
             {
                 throw new TimeoutException();
-            }
-            catch (Exception)
-            {
-                throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.ServerFault));
-            }
-        }
-
-        void IGamesManagementService.ManageActiveGame(string game_topic_name, string token)
-        {
-            try
-            {
-                using (AuthorizationServiceReference.AuthorizationServiceClient client = new AuthorizationServiceReference.AuthorizationServiceClient())
-                {
-                    AuthorizationServiceReference.User user = client.AuthorizeUser(token);
-                    IGameActions callback = OperationContext.Current.GetCallbackChannel<IGameActions>();
-                    ConnectionMultiplexer redis = ConnectionMultiplexer
-                        .Connect(ConfigurationManager.AppSettings.Get("redis_connection_string"));
-                    ISubscriber game_topic = redis.GetSubscriber();
-                    Game.Player playing_as = game_topic_name[0] % 2 == 0 ? Game.Player.White : Game.Player.Black;
-
-                    callback.StartingGame(playing_as);
-                    game_topic.Subscribe(game_topic_name, (channel, message) =>
-                    {
-                        bool game_ended = callback.ReceivedMessage(message);
-                        if (game_ended)
-                        {
-                            game_topic.Unsubscribe(game_topic_name);
-                        }
-                        (bool, string) response = callback.SendingMessage();
-                        game_topic.Publish(game_topic_name, response.Item2);
-                        if (response.Item1)
-                        {
-                            game_topic.Unsubscribe(game_topic_name);
-                        }
-                    });
-                }
-            }
-            catch (FaultException<AuthorizationServiceReference.AuthorizationFault> ex)
-            {
-                if (ex.Detail.FaultType == AuthorizationServiceReference.AuthorizationFault.AuthorizationFaultType.TokenExpired)
-                {
-                    throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.TokenExpired));
-                }
-                else
-                {
-                    throw new FaultException<GamesManagementFault>(new GamesManagementFault(GamesManagementFault.GamesManagementFaultType.InvalidSignature));
-                }
             }
             catch (Exception)
             {

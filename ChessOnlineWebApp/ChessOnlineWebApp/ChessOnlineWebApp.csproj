@@ -43,7 +43,31 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
@@ -97,15 +121,15 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="Connected Services\GamesManagementServiceReference\ChessOnlineWebApp.GamesManagementServiceReference.Game.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
     <None Include="Connected Services\EmailServiceReference\item.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\EmailServiceReference\item1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Connected Services\GamesManagementServiceReference\ChessOnlineWebApp.GamesManagementServiceReference.Game.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <None Include="Connected Services\GamesManagementServiceReference\GamesManagementService.wsdl" />
     <None Include="Connected Services\GamesManagementServiceReference\item.xsd">
       <SubType>Designer</SubType>
@@ -113,7 +137,7 @@
     <None Include="Connected Services\GamesManagementServiceReference\item1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\GamesManagementServiceReference\item2.xsd">
+    <None Include="Connected Services\GamesManagementServiceReference\item3.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\UserProfileServiceReference\item.disco" />
@@ -140,6 +164,31 @@
     <Content Include="Home.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Register.aspx" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.2.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.2.min.js" />
+    <Content Include="static\css\chessboard-1.0.0.css" />
+    <Content Include="static\css\chessboard-1.0.0.min.css" />
+    <Content Include="static\img\chesspieces\wikipedia\bB.png" />
+    <Content Include="static\img\chesspieces\wikipedia\bK.png" />
+    <Content Include="static\img\chesspieces\wikipedia\bN.png" />
+    <Content Include="static\img\chesspieces\wikipedia\bP.png" />
+    <Content Include="static\img\chesspieces\wikipedia\bQ.png" />
+    <Content Include="static\img\chesspieces\wikipedia\bR.png" />
+    <Content Include="static\img\chesspieces\wikipedia\wB.png" />
+    <Content Include="static\img\chesspieces\wikipedia\wK.png" />
+    <Content Include="static\img\chesspieces\wikipedia\wN.png" />
+    <Content Include="static\img\chesspieces\wikipedia\wP.png" />
+    <Content Include="static\img\chesspieces\wikipedia\wQ.png" />
+    <Content Include="static\img\chesspieces\wikipedia\wR.png" />
+    <Content Include="static\js\chess.js" />
+    <Content Include="static\js\chessboard-1.0.0.js" />
+    <Content Include="static\js\chessboard-1.0.0.min.js" />
+    <Content Include="static\js\jquery-3.5.1.min.js" />
     <Content Include="ResetPassword.aspx" />
     <Content Include="Web.config" />
     <None Include="Connected Services\AuthorizationServiceReference\item.xsd">
@@ -188,6 +237,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="GameHub.cs" />
     <Compile Include="ForgotPassword.aspx.cs">
       <DependentUpon>ForgotPassword.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -217,6 +267,7 @@
     <Compile Include="Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Startup.cs" />
     <Compile Include="ResetPassword.aspx.cs">
       <DependentUpon>ResetPassword.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -228,6 +279,8 @@
   <ItemGroup>
     <None Include="Connected Services\AuthorizationServiceReference\AuthorizationService.wsdl" />
     <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -245,6 +298,7 @@
     <WCFMetadataStorage Include="Connected Services\GamesManagementServiceReference\" />
     <WCFMetadataStorage Include="Connected Services\UserProfileServiceReference\" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
