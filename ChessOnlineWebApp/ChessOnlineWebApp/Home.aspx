@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title><%: Page.Title %> Chess-Online </title>
     <link href="static/css/chessboard-1.0.0.min.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="static/js/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" src="static/js/chess.js"></script>
@@ -16,12 +16,9 @@
 </head>
 <body>
     <% if (!IsLoggedIn)
-        {%>
-    <h1>Welcome to Chess-Online</h1>
-    <br />
-    <h2>Have an account? <a href="Login.aspx">Login</a></h2>
-    <h2>Need an account? <a href="Register.aspx">Register</a></h2>
-    <%}
+        {
+            Response.Redirect("Login.aspx");
+        }
         else
         {%>
     <form runat="server">
