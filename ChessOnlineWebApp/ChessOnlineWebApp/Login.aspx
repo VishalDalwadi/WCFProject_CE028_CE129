@@ -1,29 +1,28 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="ChessOnlineWebApp.Login" %>
+﻿<%@ Page Language="C#"  MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="ChessOnlineWebApp.Login" %>
 
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <a href="Home.aspx">Back to Home</a>
-    <form id="form1" runat="server">
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    
         <h3>Login</h3>
-        <div>
+        <div class="row">
+        <div class="col-sm-4 form-group">
             Username:
-            <asp:TextBox ID="Username" runat="server"></asp:TextBox>
+            <asp:TextBox ID="Username" CssClass="form-control" runat="server"></asp:TextBox>
             <br />
             <br />
             Password:
-            <asp:TextBox TextMode="Password" ID="Password" runat="server"></asp:TextBox>
+            <asp:TextBox TextMode="Password" CssClass="form-control" ID="Password" runat="server"></asp:TextBox>
             <br />
+            <br />
+            <asp:Button CssClass="btn btn-primary" ID="LoginButton" runat="server" Text="Login" OnClick="LoginButton_Click" />
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="Register.aspx">Or Create a new Account</a>
+            <br />
+            <br />
+            <a href="ForgotPassword.aspx">Forgot Password?</a>
+        </div>
+
+        </div>
         <asp:Label ID="ErrorLabel" runat="server" ForeColor="Red" Text=""></asp:Label>
-            <br />
-            <asp:Button ID="LoginButton" runat="server" Text="Login" OnClick="LoginButton_Click" />
-            
-        </div><br/>
-        <a href="ForgotPassword.aspx">Forgot Password?</a>
-    </form>
-</body>
-</html>
+                
+</asp:Content>
+
