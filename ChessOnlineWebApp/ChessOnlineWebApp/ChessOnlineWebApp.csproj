@@ -137,9 +137,6 @@
     <None Include="Connected Services\GamesManagementServiceReference\item1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\GamesManagementServiceReference\item2.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Connected Services\GamesManagementServiceReference\item3.xsd">
       <SubType>Designer</SubType>
     </None>
