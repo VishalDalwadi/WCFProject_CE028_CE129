@@ -117,7 +117,6 @@
     <Content Include="Connected Services\AuthorizationServiceReference\ChessOnlineWebApp.AuthorizationServiceReference.User.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
-    <Content Include="WebForm1.aspx" />
     <None Include="Connected Services\AuthorizationServiceReference\item.disco" />
     <None Include="Connected Services\AuthorizationServiceReference\configuration91.svcinfo" />
     <None Include="Connected Services\AuthorizationServiceReference\configuration.svcinfo" />
@@ -408,13 +407,6 @@
     </Compile>
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
-    </Compile>
-    <Compile Include="WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
