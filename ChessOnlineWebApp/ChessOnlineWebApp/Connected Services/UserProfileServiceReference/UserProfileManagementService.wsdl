@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="UserProfileManagementService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:8733/Design_Time_Addresses/RegistrationService/RegistrationService/?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8733/Design_Time_Addresses/RegistrationService/RegistrationService/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8733/Design_Time_Addresses/RegistrationService/RegistrationService/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/UserProfileManagementService" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IUserProfileManagementService_RegisterUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterUser" />
+  </wsdl:message>
+  <wsdl:message name="IUserProfileManagementService_RegisterUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUserProfileManagementService_IsUsernameTaken_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsUsernameTaken" />
+  </wsdl:message>
+  <wsdl:message name="IUserProfileManagementService_IsUsernameTaken_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsUsernameTakenResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUserProfileManagementService_UserWithEmailIdExists_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserWithEmailIdExists" />
+  </wsdl:message>
+  <wsdl:message name="IUserProfileManagementService_UserWithEmailIdExists_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserWithEmailIdExistsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUserProfileManagementService_SendPasswordResetToken_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendPasswordResetToken" />
+  </wsdl:message>
+  <wsdl:message name="IUserProfileManagementService_SendPasswordResetToken_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendPasswordResetTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUserProfileManagementService_ResetPassword_InputMessage">
+    <wsdl:part name="parameters" element="tns:ResetPassword" />
+  </wsdl:message>
+  <wsdl:message name="IUserProfileManagementService_ResetPassword_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ResetPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUserProfileManagementService_DeleteUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteUser" />
+  </wsdl:message>
+  <wsdl:message name="IUserProfileManagementService_DeleteUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteUserResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IUserProfileManagementService">
+    <wsdl:operation name="RegisterUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUserProfileManagementService/RegisterUser" message="tns:IUserProfileManagementService_RegisterUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUserProfileManagementService/RegisterUserResponse" message="tns:IUserProfileManagementService_RegisterUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsUsernameTaken">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUserProfileManagementService/IsUsernameTaken" message="tns:IUserProfileManagementService_IsUsernameTaken_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUserProfileManagementService/IsUsernameTakenResponse" message="tns:IUserProfileManagementService_IsUsernameTaken_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserWithEmailIdExists">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUserProfileManagementService/UserWithEmailIdExists" message="tns:IUserProfileManagementService_UserWithEmailIdExists_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUserProfileManagementService/UserWithEmailIdExistsResponse" message="tns:IUserProfileManagementService_UserWithEmailIdExists_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPasswordResetToken">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUserProfileManagementService/SendPasswordResetToken" message="tns:IUserProfileManagementService_SendPasswordResetToken_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUserProfileManagementService/SendPasswordResetTokenResponse" message="tns:IUserProfileManagementService_SendPasswordResetToken_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ResetPassword">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUserProfileManagementService/ResetPassword" message="tns:IUserProfileManagementService_ResetPassword_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUserProfileManagementService/ResetPasswordResponse" message="tns:IUserProfileManagementService_ResetPassword_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUserProfileManagementService/DeleteUser" message="tns:IUserProfileManagementService_DeleteUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUserProfileManagementService/DeleteUserResponse" message="tns:IUserProfileManagementService_DeleteUser_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IUserProfileManagementService" type="tns:IUserProfileManagementService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RegisterUser">
+      <soap:operation soapAction="http://tempuri.org/IUserProfileManagementService/RegisterUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsUsernameTaken">
+      <soap:operation soapAction="http://tempuri.org/IUserProfileManagementService/IsUsernameTaken" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserWithEmailIdExists">
+      <soap:operation soapAction="http://tempuri.org/IUserProfileManagementService/UserWithEmailIdExists" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPasswordResetToken">
+      <soap:operation soapAction="http://tempuri.org/IUserProfileManagementService/SendPasswordResetToken" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetPassword">
+      <soap:operation soapAction="http://tempuri.org/IUserProfileManagementService/ResetPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUser">
+      <soap:operation soapAction="http://tempuri.org/IUserProfileManagementService/DeleteUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="UserProfileManagementService">
+    <wsdl:port name="BasicHttpBinding_IUserProfileManagementService" binding="tns:BasicHttpBinding_IUserProfileManagementService">
+      <soap:address location="http://localhost:8733/Design_Time_Addresses/RegistrationService/RegistrationService/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

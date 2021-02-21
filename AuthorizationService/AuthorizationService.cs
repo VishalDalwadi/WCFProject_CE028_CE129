@@ -25,7 +25,7 @@ namespace AuthorizationService
                 .WithSecret(ConfigurationManager.AppSettings["secret_key"])
                 .MustVerifySignature()
                 .Decode<IDictionary<string, object>>(token);
-                user.Id = (long)claims["_id"];
+                user.Id = Int64.Parse(claims["_id"].ToString());
                 user.Username = (string)claims["username"];
                 user.Email_Id = (string)claims["email_id"];
             }

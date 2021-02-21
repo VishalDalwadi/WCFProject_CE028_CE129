@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/AuthenticationService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/AuthenticationService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="AuthenticationFault">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FaultType" type="tns:AuthenticationFault.AuthenticationFaultType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AuthenticationFault" nillable="true" type="tns:AuthenticationFault" />
+  <xs:simpleType name="AuthenticationFault.AuthenticationFaultType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NoSuchUser" />
+      <xs:enumeration value="InvalidPassword" />
+      <xs:enumeration value="ServerFault" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="AuthenticationFault.AuthenticationFaultType" nillable="true" type="tns:AuthenticationFault.AuthenticationFaultType" />
+</xs:schema>

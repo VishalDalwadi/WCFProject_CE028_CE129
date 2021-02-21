@@ -42,8 +42,8 @@ namespace PlayerMatching
                     RedisValue player1 = database.ListLeftPop(playerListKey);
                     RedisValue player2 = database.ListLeftPop(playerListKey);
                     string game_topic = random.Next() + "_" + player1.ToString() + player2.ToString() + "_" + random.Next();
-                    database.StringSet(player1.ToString(), game_topic);
-                    database.StringSet(player2.ToString(), game_topic);
+                    database.StringSet(player1.ToString(), "W" + game_topic);
+                    database.StringSet(player2.ToString(), "B" + game_topic);
                 }
             }
         }

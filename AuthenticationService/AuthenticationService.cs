@@ -55,26 +55,26 @@ namespace AuthenticationService
                 {
                     token = new JwtBuilder()
                         .WithAlgorithm(new HMACSHA256Algorithm())
-                        .WithSecret(ConfigurationManager.AppSettings["secret_key"])
-                        .AddClaim("exp", DateTimeOffset.UtcNow.AddDays(15).ToUnixTimeSeconds())
-                        .AddClaim("_id", reader["_id"])
-                        .AddClaim("username", reader["username"])
-                        .AddClaim("email_id", reader["email_id"])
+                        .WithSecret(ConfigurationManager.AppSettings["secret_key"].ToString())
+                        .AddClaim("exp", Convert.ToUInt64(DateTimeOffset.UtcNow.AddDays(15).ToUnixTimeSeconds()))
+                        .AddClaim("_id", Convert.ToString(reader["_id"]))
+                        .AddClaim("username", Convert.ToString(reader["username"]))
+                        .AddClaim("email_id", Convert.ToString(reader["email_id"]))
                         .Encode();
                 } 
                 else
                 {
                     if (!user_found)
                     {
-                        throw new FaultException<AuthenticationFault>(AuthenticationFault.NoSuchUser);
+                        throw new FaultException<AuthenticationFault>(new AuthenticationFault(AuthenticationFault.AuthenticationFaultType.NoSuchUser));
                     }
                     else if (!correct_password)
                     {
-                        throw new FaultException<AuthenticationFault>(AuthenticationFault.InvalidPassword);
+                        throw new FaultException<AuthenticationFault>(new AuthenticationFault(AuthenticationFault.AuthenticationFaultType.InvalidPassword));
                     } 
                     else
                     {
-                        throw new FaultException<AuthenticationFault>(AuthenticationFault.ServerFault);
+                        throw new FaultException<AuthenticationFault>(new AuthenticationFault(AuthenticationFault.AuthenticationFaultType.ServerFault));
                     }
                 }
             }

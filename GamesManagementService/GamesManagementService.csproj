@@ -100,7 +100,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Connected Services\AuthorizationServiceReference\AuthorizationService.wsdl" />
     <None Include="Connected Services\AuthorizationServiceReference\GamesManagementService.AuthorizationServiceReference.User.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>

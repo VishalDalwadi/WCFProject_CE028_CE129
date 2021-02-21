@@ -16,10 +16,27 @@ namespace AuthenticationService
         string AreCorrectCredentials(string username, string password);
     }
 
-    [DataContract]
-    public enum AuthenticationFault {
-        NoSuchUser,
-        InvalidPassword,
-        ServerFault
+	[DataContract]
+    public class AuthenticationFault 
+    {
+        public enum AuthenticationFaultType
+		{
+			NoSuchUser,
+			InvalidPassword,
+			ServerFault
+		}
+
+        private AuthenticationFaultType _faultType;
+
+        [DataMember]
+        public AuthenticationFaultType FaultType
+        {
+            get { return _faultType; }
+        }
+
+        public AuthenticationFault(AuthenticationFaultType type)
+        {
+            _faultType = type;
+        }
     }
 }
